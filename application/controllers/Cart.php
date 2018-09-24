@@ -13,6 +13,7 @@ class Cart extends CI_Controller
 		$this->load->library('session','cart');
 		$this->load->helper('form','url');
 		$this->load->model('Product_model');
+		$cat_lists=$this->Product_model->listingcount(); 
 	}
 	public function index()
 	{	

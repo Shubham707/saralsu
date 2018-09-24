@@ -85,7 +85,13 @@
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
                 
 				<form action="<?php echo base_url('user-login')?>" method="post" class="popup-form" id="myLogin">
-                	<div class="login_icon"><i class="icon_lock_alt"></i></div>
+
+                	<div class="login_icon">
+                    <a href="" class="form-control btn btn-success" >Facebook</a>
+                    <a href="<?php echo @$google_login_url;?>" class="form-control btn btn-danger">Google</a>
+                    <i class="icon-lock"></i>
+                    </div>
+
 					<input type="text" class="form-control form-white" name="email"  placeholder="Email">
 					<input type="password" class="form-control form-white" name="password" placeholder="Password">
 					<div class="text-left">
@@ -129,6 +135,29 @@
 <script src="<?php echo base_url();?>assets/validate.js"></script>
 
 <script src="<?php echo base_url();?>js/video_header.js"></script>
+<script src="<?php echo base_url();?>js/rangeslider.min.js"></script>
+
+<script src="<?php echo base_url();?>js/map.js"></script>
+<script src="<?php echo base_url();?>js/ion.rangeSlider.js"></script>
+<script src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url();?>js/bootstrap-timepicker.js"></script>
+<script>
+    $(function () {
+         'use strict';
+        $("#range").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 0,
+            max: 15,
+            from: 0,
+            to:5,
+            type: 'double',
+            step: 1,
+            prefix: "Km ",
+            grid: true
+        });
+    });
+</script>
 <script type="text/javascript">
    
 function checkemail(email)
@@ -161,6 +190,15 @@ function checkemail(email)
   return false;
  }
 }
+
+</script>
+
+<script>
+  $('input.date-pick').datepicker('setDate', 'today');
+  $('input.time-pick').timepicker({
+    minuteStep: 15,
+    showInpunts: false
+})
 </script>
 </body>
 

@@ -1,6 +1,6 @@
 <?php $this->load->view('header');?>
 <!-- SubHeader =============================================== -->
-<section class="parallax-window"  id="short"  data-parallax="scroll" data-image-src="img/sub_header_cart.jpg" data-natural-width="1400" data-natural-height="350">
+<section class="parallax-window"  id="short"  data-parallax="scroll" data-image-src="" data-natural-width="1400" data-natural-height="350">
     <div id="subheader">
     	<div id="sub_content">
     	 <h1>Place your order</h1>
@@ -104,35 +104,86 @@
 										</div>
 									</div>
 									<div class="col-md-8 col-sm-6">
-										<img src="img/icon_ccv.gif" width="50" height="29" alt="ccv"><small>Last 3 digits</small>
+										<img src="<?php echo base_url()?>img/icon_ccv.gif" width="50" height="29" alt="ccv"><small>Last 3 digits</small>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div><!--End row -->
 					<div class="payment_select" id="paypal">
-						<label><input type="radio" value="" name="payment_method" class="icheck">Pay with paypal</label>
+						<label><input type="radio" name="bn" class="icheck">Pay with paypal</label>
 					</div>
 					<div class="payment_select nomargin">
-						<label><input type="radio" value="" name="payment_method" class="icheck">Pay with cash</label>
+						<label><input type="radio" name="bn" value="0" class="icheck">Pay with cash</label>
 						<i class="icon_wallet"></i>
 					</div>
 				</div><!-- End box_style_1 -->
 			</div><!-- End col-md-6 -->
-            
-			<div class="col-md-3" id="sidebar">
-            	<?php $this->load->view('cart-product');?>
-                </div><!-- End theiaStickySidebar -->
-			</div><!-- End col-md-3 -->
-            
-		</div><!-- End row -->
-</div><!-- End container -->
-<!-- End Content =============================================== -->
+            <div class="col-md-3" id="sidebar">
+            <div class="theiaStickySidebar">
+				<div id="cart_box" >
+					<h3>Your order <i class="icon_cart_alt pull-right"></i><button class="pull-right colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></button></h3>
+					<table class="table table_summary">
+					<thead>
+						<tr>
+						<td>#Sr.</td>
+						<td><strong> Product</strong></td>
+						<td><strong>Size</strong></td>
+						<td><strong class="pull-right">Price</strong></td>
+					</tr>
+					</thead>
+					<tbody id="loadCart">
+					
+					
+					</tbody>
+					</table>
+					<hr>
+					
+					<hr>
+					<table class="table table_summary">
+					<tbody>
+					
+					<tr>
+						<td class="total">
+							 TOTAL <span class="pull-right">&#8377; <?php echo $this->cart->format_number($this->cart->total()); ?></span>
+						</td>
+					</tr>
+					</tbody>
+					</table>
+					<hr>
+					<a class="btn_full" href="<?php echo base_url('cart-list')?>">Order now</a>
+					<!-- <a class="btn_full" href="<?php echo base_url('cart-distroy');?>">Order Empty</a> -->
+				</div>
+                </div>
+			</div>
+		</div>
+</div>
+
+      
+
 <?php $this->load->view('footer');?>
 <!-- SPECIFIC SCRIPTS -->
-<script src="js/theia-sticky-sidebar.js"></script>
+<script src="<?php echo base_url()?>js/theia-sticky-sidebar.js"></script>
 <script>
     jQuery('#sidebar').theiaStickySidebar({
       additionalMarginTop: 80
     });
+    setInterval(function(){
+    $.ajax({
+        url: '<?php echo base_url('cart/loadData');?>',
+        type: 'POST',
+        data: {},
+        success:function(result)
+        {
+
+            document.getElementById('loadCart').innerHTML=result;
+        }
+    });
+    }, 2000);
+   
+	$('input[name="bn"]').change(function() {
+	   if($(this).is(':checked') && $(this).val() == '0') {
+	   		$('#myModal').modal('show');
+	   }
+	});
 </script>

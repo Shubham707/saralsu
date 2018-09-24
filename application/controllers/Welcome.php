@@ -6,12 +6,12 @@ class Welcome extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		//$this->load->library('google');
 		$this->load->model('Category_model');
 	}
 
 	public function index()
 	{
-		///$data['plan']=$this->db->get('category_table')->result();
 		$this->load->view('index');
 	}
 	

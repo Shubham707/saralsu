@@ -34,7 +34,9 @@
             	<p><a href="<?php echo base_url('product/country');?>" " class="btn_side">Back to search</a></p>
 				<div class="box_style_1">
 					<ul id="cat_nav">
-                    <?php foreach($cats as $cat):?>
+                    <?php 
+                    $cat_lists=$this->Product_model->listingcount();
+                    foreach($cat_lists as $cat):?>
 						<li><a href="#<?php echo $cat->product_category;?>" class="active"> <?php echo ucfirst($cat->product_category);?><span>(<?php echo $cat->total?>)</span></a></li>
                     <?php endforeach; ?>
 					</ul>
@@ -51,7 +53,7 @@
 			<div class="col-md-6">
 				<div class="box_style_2" id="main_menu">
 					<h2 class="inner">Menu</h2>
-                    <?php foreach($cats as $product){?>
+                    <?php foreach($cat_lists as $product){?>
 					<h3 class="nomargin_top" id="<?php echo $product->product_category;?>"><?php echo ucfirst($product->product_category);?></h3>
 					<hr>
 					<table class="table table-striped cart-list">
@@ -150,7 +152,7 @@
 					</tbody>
 					</table>
 					<hr>
-					<a class="btn_full" href="<?php echo base_url('cart-list')?>">Order now</a>
+					<a class="btn_full" href="<?php echo base_url('product/cart')?>">Order now</a>
 					<!-- <a class="btn_full" href="<?php echo base_url('cart-distroy');?>">Order Empty</a> -->
 				</div>
                 </div>
@@ -200,16 +202,17 @@ function selectItem(arg)
 		alert('Product Option Is Not Select');
 	}
 }
-$(document).ready(function(){
-   
-        $.ajax({
-			url: '<?php echo base_url('cart/loadData');?>',
-			type: 'POST',
-			data: {},
-			success:function(result)
-			{
-				document.getElementById('loadCart').innerHTML=result;
-			}
-		});
-});
+setInterval(function(){
+    $.ajax({
+        url: '<?php echo base_url('cart/loadData');?>',
+        type: 'POST',
+        data: {},
+        success:function(result)
+        {
+
+            document.getElementById('loadCart').innerHTML=result;
+        }
+    });
+    }, 2000);
+
 </script>

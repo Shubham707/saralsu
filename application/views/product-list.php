@@ -4,6 +4,7 @@
 		padding: 15px;
 		text-align: top;
 	}
+
 </style>
 <!-- SubHeader =============================================== -->
 <section class="parallax-window" id="short" data-parallax="scroll" data-image-src="img/sub_header_short.jpg" data-natural-width="1400" data-natural-height="350">
@@ -44,13 +45,16 @@
 				<div class="collapse" id="collapseFilters">
 					<div class="filter_type">
                     	<h6>Distance</h6>
-                        <input type="text" id="range" value="" name="range">
+                        
+						      <input type="text" id="range" value="" name="range" onscroll="areaRange(this.value)">
+						  
 						<h6>All Category</h6>
 						<form action="#" method="post" class="filter" id="filter">
 						<ul>
 							<li><label>
-							<input type="radio" name="myradios"  class="ads_Checkbox" checked value="all"  onclick="selectCategory(this.value)">All <small>(<?php echo count($details)?>)</small></label></li>
-							<?php foreach($cat_lists as $list):?>
+							<input type="radio" name="myradios"  class="ads_Checkbox" checked value="all"  onclick="selectCategory(this.value)">All <small>(<?php echo count($tatal)?>)</small></label></li>
+							<?php $cat_lists=$this->Product_model->listingcount(); 
+							foreach($cat_lists as $list):?>
 							<li><label>
 								<input type="radio" name="myradios" class="ads_Checkbox" value="<?php echo $list->product_category?>" onclick="selectCategory(this.value)">
 								<?php echo ucfirst($list->product_category);?> <small>(<?php echo $list->total;?>)</small></label><i class="color_1"></i></li>
@@ -59,7 +63,7 @@
 						</form>
 					</div>
 					
-					<div class="filter_type">
+					<!-- <div class="filter_type">
 						<h6>Options</h6>
 						<ul class="nomargin">
 							<li><label><input type="checkbox" class="icheck">Delivery</label></li>
@@ -67,7 +71,7 @@
 							<li><label><input type="checkbox" class="icheck">Distance 10Km</label></li>
 							<li><label><input type="checkbox" class="icheck">Distance 5Km</label></li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -86,12 +90,14 @@
 						</div>
 					</div>
 					<div class="col-md-9 col-sm-9 hidden-xs">
-						<a href="<?php echo base_url('product/menu');?>" class="bt_filters"><i class="icon-list"></i></a>
+						<a href="<?php echo base_url('product/menu');?>" class="bt_filters"><i class="icon-list" id="grid"></i></a>
+						<a href="<?php echo base_url('product/list');?>" class="bt_filters"><i class="icon_menu-circle_alt2"></i></a>
 					</div>
+					
 				</div>
 			</div>
         
-        	<div class="row">
+        	<div class="row" id="shw">
         	<?php if(@$details[0]!=''){ 
         		foreach($details as $product):?>
             	<div class="col-md-6 col-sm-6 wow zoomIn" data-wow-delay="0.1s">
@@ -117,7 +123,8 @@
 								<li>Delivery<i class="icon_check_alt2 ok"></i></li>
 							</ul>
 							<div id="result"></div>
-							<button class="btn btn-success" onclick="addToCart(this.value)" value="<?php echo $product->product_id;?>">Add cart</button>
+							<!-- <button class="btn btn-success" onclick="addToCart(this.value)" value="<?php echo $product->product_id;?>">Add cart</button> -->
+							<button class="btn btn-success" value="<?php echo $product->product_id;?>">More</button>
 							
 						</div>
                     </a>
@@ -127,7 +134,7 @@
             	}?>
                                
             </div>
-            <a href="#0" class="load_more_bt wow fadeIn" data-wow-delay="0.2s">Load more...</a>           
+            <!-- <a href="#0" class="load_more_bt wow fadeIn" data-wow-delay="0.2s">Load more...</a> -->           
 		</div>
         
 	</div>
@@ -136,15 +143,36 @@
 <!-- End Content =============================================== -->
 <?php $this->load->view('footer')?>
 <script type="text/javascript">
-
+	var counter=0;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height() && counter < 2) {
+            appendData();
+        }
+    });
 function selectCategory(id)
 {
-	if(id=='all')
-	{
-		window.location.href="<?php echo base_url('product')?>";
-	}else{
-      window.location.href="<?php echo base_url('product/selectCategory/')?>"+id;	
-  }
+	$.ajax({
+		url: '<?php echo base_url('product/selectCategory')?>',
+		type: 'POST',
+		data: {'product_id': id},
+		success:function(responce)
+		{
+			if(responce)
+			{
+				//$("#shw").html(responce);
+				$('#shw').append(responce);
+			    /* counter++;
+			
+				if(counter==2)
+				$('#shw').append(responce);
+        */
+			}
+			else{
+			 $("#result").html('Order is not success!'); 
+              $("#result").addClass("alert alert-danger");
+			}
+		}
+	});	
 }
 function addToCart(arg)
 {
@@ -167,4 +195,8 @@ function addToCart(arg)
 	});	
 }
 $('#result').hide(30000);
+function areaRange(area)
+{
+	alert(area);
+}
 </script>

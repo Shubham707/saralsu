@@ -30,6 +30,11 @@
     <link href="<?php echo base_url();?>css/admin.css" rel="stylesheet">
     <link href="<?php echo base_url();?>css/bootstrap3-wysihtml5.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>css/dropzone.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <link href="<?php echo base_url();?>css/skins/square/grey.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>css/ion.rangeSlider.skinFlat.css" rel="stylesheet" >
+    <link href="<?php echo base_url();?>css/date_time_picker.css" rel="stylesheet">
     <style type="text/css">
         .add_to_basket{ cursor:pointer; }
 
@@ -104,7 +109,13 @@
                     <li><a href="<?php echo base_url();?>about.html">About us</a></li>
                     <li><a href="#0" data-toggle="modal" data-target="#login_2"> Login</a></li>
                     <li><a href="#0" data-toggle="modal" data-target="#register"> Register</a></li>
-                    <li><i class="icon_cart_alt lg pull-right dot"></i><span class="pull-right colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></span></li>
+                    <li class="submenu">
+                    <a href="javascript:void(0);" style="color: red; margin-right: 40px;" class="show-submenu">Cart(<?php echo count($this->cart->contents());?>)<i class=" icon_cart_alt"></i></a>
+                    <ul>
+                    <li><a style=" margin-right: 40px;" href="<?php echo base_url('product/cart');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a></li>
+                   
+                    </ul>
+                    </li>
                 </ul>
             </div><!-- End main-menu -->
             </nav>

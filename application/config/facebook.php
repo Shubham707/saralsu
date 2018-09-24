@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['facebook_app_id']              = '646396152391720';
 $config['facebook_app_secret']          = 'bb7b8d0a0ed6ecfd8453cda003b8a3b5';
 $config['facebook_login_type']          = 'web';
-$config['facebook_login_redirect_url']  = 'http://www.vkbikes.in/web_login';
+$config['facebook_login_redirect_url']  = 'http://localhost/cafeteria/web_login';
 $config['facebook_logout_redirect_url'] = 'login/logout';
 $config['facebook_permissions']         = array('public_profile', 'publish_actions', 'email');
 $config['facebook_graph_version']       = 'v2.6';

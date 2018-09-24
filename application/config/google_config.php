@@ -10,7 +10,7 @@
 |  api_key           string   Developer key.
 |  scopes            string   Specify scopes
 */
-$config['google']['client_id']        = '480061210784-vtikld7btq04f8r9v9aecjtkp00juq66.apps.googleusercontent.com';
+$config['google']['client_id']        = '49633176348-imavtssrqg5t89rrkcglltl7rgh5rnu6.apps.googleusercontent.com';
 $config['google']['client_secret']    = 'zO16KGEckQn828lIO6FzFCXp';
 $config['google']['redirect_uri']     = base_url().'user_authentication/';
 $config['google']['application_name'] = '';
