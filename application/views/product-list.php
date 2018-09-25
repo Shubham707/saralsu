@@ -123,7 +123,7 @@
 								<li>Delivery<i class="icon_check_alt2 ok"></i></li>
 							</ul>
 							<div id="result"></div>
-							<!-- <button class="btn btn-success" onclick="addToCart(this.value)" value="<?php echo $product->product_id;?>">Add cart</button> -->
+							 <button class="btn btn-success" onclick="addToCart(this.value)" value="<?php echo $product->product_id;?>">Add cart</button>
 							<button class="btn btn-success" value="<?php echo $product->product_id;?>">More</button>
 							
 						</div>

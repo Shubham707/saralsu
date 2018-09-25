@@ -19,6 +19,7 @@ class Product extends CI_Controller
     }
     public function index()
     {
+    	$data['tatal']=$this->Product_model->listingData();
     	$data['details']=$this->Product_model->listingData();
 		$this->load->view('product-list', $data);
     }
