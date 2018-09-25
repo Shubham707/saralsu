@@ -88,8 +88,15 @@
                     
                     </li>
                     <li><a href="<?php echo base_url();?>about.html">About us</a></li>
-                    <li><a href="#0" data-toggle="modal" data-target="#login_2"> Login</a></li>
+                    
                     <li><a href="#0" data-toggle="modal" data-target="#register"> Register</a></li>
+                    <li>
+                    <?php if($this->session->userdata('name')!=''){?>
+                    <a href="<?php echo base_url('logout');?>"> Logout</a>
+                      <?php }else{?>
+                      <a href="#0" data-toggle="modal" data-target="#login_2"> Login</a>
+                      <?php }?>
+                    </li>
                     <li class="submenu">
                     <a href="javascript:void(0);" style="color: red; margin-right: 40px;" class="show-submenu">Cart(<?php echo count($this->cart->contents());?>)<i class=" icon_cart_alt"></i></a>
                     <ul>

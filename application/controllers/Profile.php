@@ -19,30 +19,23 @@ class Profile extends CI_Controller
 	
 	public function index()
 	{
-		$data['bike']=$this->db->get('brand_table')->result();
 		$id=$this->session->userdata('id');
 		$email=$this->session->userdata('email');
 		$data['users']=$this->db->get_where('users',array('id'=>$id))->result();
-		$data['booking']=$this->db->get_where('booking',array('email'=>$email))->result();
-		//print_r($data['booking']); die();
+		$data['state']=$this->db->query('SELECT DISTINCT city_state FROM cities')->result();
+		$data['category']=$this->db->get_where('booking',array('email'=>$email))->result();
 		$this->load->view('profile',$data);
 	}
-	public function update()
+	
+	public function city()
 	{
-		$id=$this->session->userdata('id');
-		$data=array(
-			'name'=> $this->input->post('name'),
-			'email'=>$this->input->post('email'),
-			'mobile'=>$this->input->post('mobile'),
-			'bike_name'=>$this->input->post('bike_name'),
-			'bike_ccc'=>$this->input->post('bike_ccc'),
-			'bike_year'=>$this->input->post('bike_year'),
-			'bike_location'=>$this->input->post('bike_location'),
-			'address'=>$this->input->post('address'),
-			'images'=>$this->input->post('images'),
-		);
-		$this->db->where('id',$id);
-		$this->db->update('users',$data);
+		$city=$this->input->post('param');
+		$data=$this->db->get_where('cities',array('city_state'=>$city))->result();
+		echo '<label>City</label><select class="form-control" name="city_booking" id="city_booking">';
+		foreach ($data as $value) {
+			echo '<option value="'.$value->city_name.'">'.$value->city_name.'</option>';
+		}
+		echo "</select>";
 	}
 	
 }

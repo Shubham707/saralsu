@@ -8,7 +8,7 @@
             <form method="post"  action="<?php echo base_url('mobile/check');?>" >
                 <div id="custom-search-input">
                     <div class="input-group">
-                        <input type="text" name="mobile" id="mobile" onchange="phonenumber(this.value)"  class=" search-query" placeholder="Enter Your Mobile Number" required>
+                        <input type="text" name="mobile" id=""   class=" search-query" placeholder="Enter Your Mobile Number OR Email Id" required maxlength="">
                         <div style="color: red;" id='error'></div>
                         <span class="input-group-btn">
                         <input type="submit" class="btn_search" value="submit">
@@ -27,7 +27,7 @@
             <li><span class="number">2650</span> Restaurant</li>
             <li><span class="number">5350</span> People Served</li>
             <li><span class="number">12350</span> Registered Users</li>
-            <li><span class="number">12350</span> Merchante Users</li>
+            <li><span class="number">12350</span> Merchant Users</li>
         </ul>
     </div>
     
@@ -197,12 +197,9 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
 $(document).ready(function () {
-  //called when key is pressed in textbox
   $("#mobile").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#error").html("Digits Only").show().fadeOut("slow");
+        $("#error").html("Input Only 10 Digit").show().fadeOut("slow",1000);
                return false;
     }
    });
