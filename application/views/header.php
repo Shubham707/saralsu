@@ -79,32 +79,13 @@
                 </div>
                 <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
                 <ul>
-                    <li class="submenu">
-                    <a href="javascript:void(0);" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>
-                    <ul>
-                        <li><a href="<?php echo base_url();?>index-2.html">Home Video background</a></li>
-                        <li><a href="<?php echo base_url();?>index_2.html">Home Static image</a></li>
-                        <li><a href="<?php echo base_url();?>index_3.html">Home Text rotator</a></li>
-                        <li><a href="<?php echo base_url();?>index_8.html">Home Layer slider</a></li>
-                        <li><a href="<?php echo base_url();?>index_4.html">Home Cookie bar</a></li>
-                        <li><a href="<?php echo base_url();?>index_5.html">Home Popup</a></li>
-                        <li><a href="<?php echo base_url();?>index_6.html">Home Mobile synthetic</a></li>
-                        <li><a href="<?php echo base_url();?>index_7.html">Top Menu version 2</a></li>
-                    </ul>
+                    <li>
+                    <a href="<?php echo base_url();?>">Home</a>
                     </li>
-                    <li class="submenu">
-                    <a href="javascript:void(0);" class="show-submenu">Restaurants<i class="icon-down-open-mini"></i></a>
-                    <ul>
-                        <li><a href="<?php echo base_url();?>list_page.html">Row listing</a></li>
-                        <li><a href="<?php echo base_url();?>grid_list.html">Grid listing</a></li>
-                        <li><a href="<?php echo base_url();?>map_listing.html">Map listing</a></li>
-                        <li><a href="<?php echo base_url();?>detail_page.html">Restaurant Menu</a></li>
-                        <li><a href="<?php echo base_url();?>submit_restaurant.html">Submit Restaurant</a></li>
-                        <li><a href="<?php echo base_url();?>cart.html">Order step 1</a></li>
-                        <li><a href="<?php echo base_url();?>cart_2.html">Order step 2</a></li>
-                        <li><a href="<?php echo base_url();?>cart_3.html">Order step 3</a></li>
-                        <li><a href="<?php echo base_url();?>cart_datepicker.html">Order Date/Time picker</a></li>
-                    </ul>
+                    
+                    <li>
+                    <a href="<?php echo base_url('restaurants')?>">Restaurants</a>
+                    
                     </li>
                     <li><a href="<?php echo base_url();?>about.html">About us</a></li>
                     <li><a href="#0" data-toggle="modal" data-target="#login_2"> Login</a></li>
@@ -112,7 +93,13 @@
                     <li class="submenu">
                     <a href="javascript:void(0);" style="color: red; margin-right: 40px;" class="show-submenu">Cart(<?php echo count($this->cart->contents());?>)<i class=" icon_cart_alt"></i></a>
                     <ul>
-                    <li><a style=" margin-right: 40px;" href="<?php echo base_url('product/cart');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a></li>
+                    <li>
+                    <?php if($this->cart->contents()==''){?>
+                    <a style=" margin-right: 40px;" href="<?php echo base_url('product');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a>
+                    <?php }else{?>
+                    <a style=" margin-right: 40px;" href="<?php echo base_url('product/cart');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a>
+                    <?php }?>
+                    </li>
                    
                     </ul>
                     </li>

@@ -26,7 +26,7 @@ class Product extends CI_Controller
 	{
 	     $cookie_name=str_replace('-', ' ',$str);
 	      set_cookie('cookie_name',$cookie_name,'3600'); 
-	      get_cookie('cookie_name');
+	      //get_cookie('cookie_name');
 	     $data['tatal']=$this->Product_model->listingData();
 	    $data['details']=$this->Product_model->datasearch($cookie_name);
 		$this->load->view('product-list', $data);

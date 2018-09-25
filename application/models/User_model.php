@@ -32,15 +32,20 @@ class User_model extends CI_Model
 	/*login admin*/
 	public function admin_login($user_email,$user_pass)
 	{
-	$data=$this->db->get_where('users',array('email'=> $user_email,'password'=>$user_pass,))->result();	
-	if($data)
-	{
-		return $data;
-	}
-	else{
-		return false;
-	}
+		$data=$this->db->get_where('users',array('email'=> $user_email,'password'=>$user_pass,))->result();	
+		if($data)
+		{
+			return $data;
+		}
+		else{
+			return false;
+		}
 	
+	}
+	public function check($value)
+	{
+		return $query = $this->db->get_where('users',array('email'=>$value))->result();
+		//print_r($query);die;
 	}
 	
 }

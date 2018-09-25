@@ -28,10 +28,21 @@ class Login extends CI_Controller
 			'mobile' => $this->input->post('mobile'),
 			'password' => md5($this->input->post('password')),
 		);
-		//print_r($data); die();
-		$this->User_model->customer_form_insert($data);
-		$this->session->set_flashdata('message', 'New User Registration Successfull');
+		$q=$this->User_model->check($this->input->post('email'));
+		if($q[0]->email==$this->input->post('email'))
+		{
+
+		$this->session->set_flashdata('message', '<div class="alert alert-danger">
+  			<strong>Danger!</strong>Email ID Already Exit</div>');
+			redirect(base_url());
+		}
+		else{
+			$this->User_model->customer_form_insert($data);
+		$this->session->set_flashdata('message', '<div class="alert alert-success">
+  		<strong>Success!</strong>New User Registration Successfull</div>');
 		redirect(base_url());
+		}
+		
 	}
 	public function user_login()
 	{
