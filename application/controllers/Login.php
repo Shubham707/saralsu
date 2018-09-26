@@ -21,12 +21,21 @@ class Login extends CI_Controller
 	}
 	public function save()
 	{
+		$length='10';
+		$str = "";
+		$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+		$max = count($characters) - 1;
+		for ($i = 0; $i < $length; $i++) {
+			$rand = mt_rand(0, $max);
+			$str .= $characters[$rand];
+		}
+	    $rand=substr($this->input->post('mobile'),0,7).$str;
 		$data = array(
-			'first_name' => $this->input->post('name'),
-			'last_name' => $this->input->post('last'), 
+			'department' => $this->input->post('user'), 
 			'email' => $this->input->post('email'),
 			'mobile' => $this->input->post('mobile'),
-			'password' => md5($this->input->post('password')),
+			'password' => md5($rand),
+			'securepass' => $rand,
 		);
 		$q=$this->User_model->check($this->input->post('email'));
 		if($q[0]->email==$this->input->post('email'))
@@ -80,6 +89,17 @@ class Login extends CI_Controller
 	{
 		 $email=$_REQUEST['email'];
 		 $data=$this->db->get_where('users',array('email'=>$email))->result();
+		if(@$data[0]->email)
+		{
+			echo "Email Already Exist";
+		}else{
+			echo "OK";
+		}
+	}
+	public function checkMobile()
+	{
+		 $email=$_REQUEST['mobile'];
+		 $data=$this->db->get_where('users',array('mobile'=>$email))->result();
 		if(@$data[0]->email)
 		{
 			echo "Email Already Exist";

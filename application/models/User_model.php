@@ -45,7 +45,11 @@ class User_model extends CI_Model
 	public function check($value)
 	{
 		return $query = $this->db->get_where('users',array('email'=>$value))->result();
-		//print_r($query);die;
 	}
+	public function updateUser($value)
+	{
+		return $query = $this->db->insert('merchant',$value);
+	}
+	
 	
 }

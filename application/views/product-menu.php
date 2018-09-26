@@ -123,11 +123,11 @@
 			<div class="col-md-3" id="sidebar">
             <div class="theiaStickySidebar">
 				<div id="cart_box" >
-					<h3>Your order <i class="icon_cart_alt pull-right"></i><button class="pull-right colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></button></h3>
+					<h3>Your order <i class="icon_cart_alt pull-right"></i><button class="pull-right colror fa fa-circle-thin dot" id="productvalue"></button></h3>
 					<table class="table table_summary">
 					<thead>
 						<tr>
-						<td>#Sr.</td>
+						<td>Qty</td>
 						<td><strong> Product</strong></td>
 						<td><strong>Size</strong></td>
 						<td><strong class="pull-right">Price</strong></td>
@@ -146,7 +146,7 @@
 					
 					<tr>
 						<td class="total">
-							 TOTAL <span class="pull-right">&#8377; <?php echo $this->cart->format_number($this->cart->total()); ?></span>
+							 TOTAL: &#8377; <span class="pull-right" id="totalvalue"> </span>
 						</td>
 					</tr>
 					</tbody>
@@ -202,17 +202,6 @@ function selectItem(arg)
 		alert('Product Option Is Not Select');
 	}
 }
-setInterval(function(){
-    $.ajax({
-        url: '<?php echo base_url('cart/loadData');?>',
-        type: 'POST',
-        data: {},
-        success:function(result)
-        {
 
-            document.getElementById('loadCart').innerHTML=result;
-        }
-    });
-    }, 2000);
 
 </script>

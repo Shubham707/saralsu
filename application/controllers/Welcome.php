@@ -18,7 +18,7 @@ class Welcome extends CI_Controller
 	public function search()
 	{
 		$name=str_replace('%20', ' ',$_REQUEST['str_state']);
-		 $data=$this->Category_model->datasearch($name);
+		$data=$this->Category_model->datasearch($name);
 		
 		if($data!='')
 		{
@@ -32,4 +32,16 @@ class Welcome extends CI_Controller
 			echo 'data not found!';
 		}
 	}
+	public function restaurant(){
+		$name=$_REQUEST['str_state'];
+		$data['tatal']=$this->Product_model->listingData();
+	    $data['details']=$this->Product_model->datasearch($name);
+	    if($data['details']!=''){
+		$this->load->view('product-list', $data);
+		}
+		else{
+		$this->load->view('index');
+		}
+	}
+
 }

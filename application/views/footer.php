@@ -111,17 +111,24 @@
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
 				<form action="<?php echo base_url('signup');?>" method="post" class="popup-form" id="myRegister">
                 	<div class="login_icon"><i class="icon_lock_alt"></i></div>
-					<input type="text" class="form-control form-white" name="name" placeholder="First Name" required>
-					<input type="text" class="form-control form-white" name="last" placeholder="Last Name" required>
+                    <div class="col-sm-12">
+                    <div class="col-sm-6">
+                    <label>User</label>
+					<input type="radio" class="form-control" name="user" required value="user">
+                    </div>
+                    <div class="col-sm-6">
+                    <label>Merchant</label>
+					<input type="radio" class="form-control" name="user" required value="merchant">
+                    </div>
+                    </div>
                     <input type="email" id="email-input" onkeyup="checkemail(this.value);" class="form-control form-white" name="email" id="email" placeholder="Email" required>
                     <span id="name_status"></span>
-                    <input type="text" class="form-control form-white" name="mobile" placeholder="Mobile No" required>
-                    <input type="password" class="form-control form-white" name="password" placeholder="Password"  id="password1" required>
-                    <input type="password" class="form-control form-white" placeholder="Confirm password"  id="password2" required>
+                    <input type="text" class="form-control form-white" onkeyup="checkMobile(this.value);" name="mobile" id="mobile" maxlength="10" placeholder="Mobile No" required>
+                   <span id="name_mobile"></span>
                     <div id="pass-info" class="clearfix"></div>
 					<div class="checkbox-holder text-left">
 						<div class="checkbox">
-							<input type="checkbox" value="accept_2" id="check_2" name="check_2" />
+							<input type="checkbox" value="accept_2" id="check_2" name="check_2" required />
 							<label for="check_2"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
 						</div>
 					</div>
@@ -142,6 +149,8 @@
 <script src="<?php echo base_url();?>js/ion.rangeSlider.js"></script>
 <script src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url();?>js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script src="<?php echo base_url();?>js/dropzone.min.js"></script>
 <script>
     $(function () {
          'use strict';
@@ -182,7 +191,7 @@ function checkemail(email)
    {
 
     $('#name_status').html('<span style="color:red">Email already exit!</span>'); 
-    $('#email').text();  
+    $('#email').val('');  
    }
   }
   });
@@ -190,6 +199,38 @@ function checkemail(email)
  else
  {
   $('#name_status').html("");
+  return false;
+ }
+}
+function checkMobile(mobile)
+{
+    
+ if(mobile)
+ {
+  $.ajax({
+  type: 'post',
+  url: '<?php echo base_url('login/checkMobile');?>',
+  data: {
+   'mobile':mobile,
+  },
+  success: function (response) {
+   $( '#name_mobile' ).html(response);
+   if(response=="OK")   
+   {
+   $('#name_mobile').html('<span style="color:green">Mobile Available!</span>');  
+   }
+   else
+   {
+
+    $('#name_mobile').html('<span style="color:red">Mobile No already exit!</span>'); 
+    $('#mobile').val('');  
+   }
+  }
+  });
+ }
+ else
+ {
+  $('#name_mobile').html("");
   return false;
  }
 }
@@ -202,6 +243,51 @@ function checkemail(email)
     minuteStep: 15,
     showInpunts: false
 })
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#mobile").keypress(function (e) {
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#error").html("Input Only 10 Digit").show().fadeOut("slow",1000);
+               return false;
+    }
+   });
+});
+</script>
+<script type="text/javascript">
+setInterval(function(){
+    $.ajax({
+        url: '<?php echo base_url('cart/loadData');?>',
+        type: 'POST',
+        data: {},
+        success:function(result)
+        {
+     $('#loadCart').html(result);
+        }
+    });
+    $.ajax({
+        url: '<?php echo base_url('cart/loadtotal');?>',
+        type: 'POST',
+        data: {},
+        success:function(result)
+        {
+     $('#totalvalue').html(result);
+
+        }
+    });
+    $.ajax({
+        url: '<?php echo base_url('cart/loadvalue');?>',
+        type: 'POST',
+        data: {},
+        success:function(result)
+        {
+          
+       $('#productvalues').html(result);
+       $('#productvaluess').html(result);
+       $('#productvalue').html(result);
+        }
+    });
+    }, 2000);
 </script>
 </body>
 

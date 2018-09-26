@@ -5,7 +5,7 @@
         <div id="sub_content">
             <h1>Order Takeaway or Delivery Food</h1>
             
-            <form method="GET"  action="<?php echo base_url('welcome/search');?>">
+            <form method="post"  action="<?php echo base_url('welcome/restaurant');?>">
                 <div id="custom-search-input">
                     <div class="input-group">
                         <input type="text" name="str_state" id="str_state" onkeyup="showHint(this.value)" class=" search-query" placeholder="Your Address  Country, State, city">

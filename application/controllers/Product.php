@@ -98,4 +98,5 @@ class Product extends CI_Controller
 		$this->load->view('cart-list');
 	}
 	
+	
 }

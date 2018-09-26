@@ -91,7 +91,7 @@
                     
                     <?php if($this->session->userdata('name')!=''){?>
                     <li class="submenu">
-                    <a href="javascript:void(0);" style="color: red;" class="show-submenu"> Account</a>
+                    <a href="javascript:void(0);" style="color: red;" class="show-submenu"> <?php echo $this->session->userdata('name');?></a>
                         <ul>
                             <li>Logout</li>
                             <li>Profile</li>
@@ -107,14 +107,14 @@
                       <?php }?>
             
                     <li class="submenu">
-                    <a href="javascript:void(0);" style="color: red; margin-right: 40px;" class="show-submenu">Cart(<?php echo count($this->cart->contents());?>)<i class=" icon_cart_alt"></i></a>
+                    <a href="javascript:void(0);" style="color: red; margin-right: 40px;" class="show-submenu">Cart(<span id="productvaluess"></span>)<i class=" icon_cart_alt"></i></a>
                     <ul>
                     <li>
-                    <?php if($this->cart->contents()==''){?>
-                    <a style=" margin-right: 40px;" href="<?php echo base_url('product');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a>
-                    <?php }else{?>
-                    <a style=" margin-right: 40px;" href="<?php echo base_url('product/cart');?>"> <i class="icon_cart_alt lg pull-right dot"></i><span class="colror fa fa-circle-thin dot"><?php echo count($this->cart->contents());?></a>
-                    <?php }?>
+                        <?php if($this->cart->contents()==''){?>
+                        <a style=" margin-right: 40px;" href="#"> 0</a>
+                        <?php }else{?>
+                        <a style=" margin-right: 40px;" href="<?php echo base_url('product/cart');?>"> <i class="icon_cart_alt lg  dot"></i><span class="colror fa fa-circle-thin dot" id="productvalues"></a>
+                        <?php }?>
                     </li>
                    
                     </ul>

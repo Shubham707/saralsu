@@ -34,26 +34,6 @@ class Cart extends CI_Controller
 		);
 		$show=$this->cart->insert($data);	
 	}
-	public function add()
-	{
-		  $hash_string = MERCHANT_KEY."|".$data['txnid']."|".$data['totalCost']."|"."productinfo|".$this->session->userdata('username')."|".$this->session->userdata('email')."|||||||||||".SALT;
-	    $rand=substr(hash('sha256', mt_rand() . microtime()), 0, 20);
-		$insert_room = array(
-			'id' => $rand,
-			'total' => $this->input->get_post('total'),
-			'bike' => $this->input->get_post('bike'),
-			'name' => $this->input->get_post('plan'),
-			'username' => $this->session->userdata('username'),
-			'email' => $this->session->userdata('email'),
-			'mobile' => $this->session->userdata('mobile'),
-			'qty'=>1,
-	        'hash'=> strtolower(hash('sha512', $hash_string)),
-	        'action' => PAYU_BASE_URL . '/_payment',       
-		);
-		$this->cart->insert($insert_room);
-
-		$this->load->view('cart', $insert_room);
-	}
 	function remove($rowid)
 	{
 		if ($rowid=="all"){
@@ -100,13 +80,34 @@ class Cart extends CI_Controller
 	{
 		$this->load->view('cart-list');
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*load data*/
 	public function loadData()
 	{
 		$i=1; 
 		foreach ($total=$this->cart->contents() as $items)
 		{
 			echo '<tr>
-			  <td>'.$i++.'</td>
+			  <td>'.$items['qty'].'</td>
 			  <a href="#0" class="remove_item"><i class="icon_minus_alt"></i></a>
 				<td>'.$items['name'].'</td>
 				<td>'.$items['options'].'</td>
@@ -129,5 +130,12 @@ class Cart extends CI_Controller
 		);
 		$show=$this->cart->insert($data);	
 	}
+	public function loadtotal(){
+	echo $this->cart->format_number($this->cart->total());
+	}
+	public function loadvalue(){
+	echo count($this->cart->contents());
+	}
+	
 }
  
